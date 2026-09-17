@@ -35,7 +35,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 Debug.Log("Diff Y Size: " + ySizeDiff);
 
                 if((diffZRot <= 7 || (diffZRot >= 353 && diffZRot <= 360)) &&
-                    (xSizeDiff <= 0.08f && ySizeDiff <= 0.08f))
+                    (xSizeDiff <= 0.7f && ySizeDiff <= 0.7f))
                 {
                     Debug.Log("Car placed correctly!");
                     gameObjectsScript.inRightPlace = true;
@@ -59,6 +59,42 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                             break;
 
                         case "School":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "b2":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "Cement":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "e46":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "e61":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "Excavator":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "Police":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "YellowTractor":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "GreenTractor":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            break;
+
+                        case "Firefighters":
                             gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
                             break;
 
@@ -88,6 +124,51 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                     case "School":
                        gameObjectsScript.schoolBus.GetComponent<RectTransform>().localPosition =
                             gameObjectsScript.schoolBusCoord;
+                        break;
+
+                    case "b2":
+                        gameObjectsScript.b2.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.b2Coord;
+                        break;
+
+                    case "Cement":
+                        gameObjectsScript.cementTruck.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.cementTruckCoord;
+                        break;
+
+                    case "e46":
+                        gameObjectsScript.e46.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.e46Coord;
+                        break;
+
+                    case "e61":
+                        gameObjectsScript.e61.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.e61Coord;
+                        break;
+
+                    case "Excavator":
+                        gameObjectsScript.excavator.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.excavatorCoord;
+                        break;
+
+                    case "Police":
+                        gameObjectsScript.police.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.policeCoord;
+                        break;
+
+                    case "YellowTractor":
+                        gameObjectsScript.yellowTractor.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.yellowTractorCoord;
+                        break;
+
+                    case "GreenTractor":
+                        gameObjectsScript.greenTractor.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.greenTractorCoord;
+                        break;
+
+                    case "Firefighters":
+                        gameObjectsScript.firefighters.GetComponent<RectTransform>().localPosition =
+                             gameObjectsScript.firefightersCoord;
                         break;
 
                     default:
