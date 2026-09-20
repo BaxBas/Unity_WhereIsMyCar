@@ -3,7 +3,8 @@ using UnityEngine;
 public class ObjectTransformationScript : MonoBehaviour
 {
     public GameObjectsScript gameObjectsScript;
-
+    private bool canFlip = true;
+    public float flipCd = .5f;
 
     void Awake()
     {
@@ -66,6 +67,24 @@ public class ObjectTransformationScript : MonoBehaviour
                     GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y, 1f);
                 }
             }
+
+            if (Input.GetKey(KeyCode.Space) && canFlip)
+            {
+                GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale =
+                new Vector3(-GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x,
+                GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y, 1f);
+
+                // sâkt cooldown taimeri
+                StartCoroutine(FlipCooldown());
+            }
         }
+    }
+
+    //cooldown priekð flippoðanas
+    private System.Collections.IEnumerator FlipCooldown()
+    {
+        canFlip = false;
+        yield return new WaitForSecondsRealtime(flipCd);
+        canFlip = true;
     }
 }
