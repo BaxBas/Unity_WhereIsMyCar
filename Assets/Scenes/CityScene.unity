@@ -939,6 +939,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9fd190caa7bd53346af74d5064e02bcd, type: 3}
   - {fileID: 8300000, guid: a8208f1ae31c4294fa438c10c7091439, type: 3}
   - {fileID: 8300000, guid: f59ef0e19896a424ca4c1e60a1d4afb4, type: 3}
+  - {fileID: 8300000, guid: 3120b6c9e1acc9c47ae46ae8721ea674, type: 3}
+  - {fileID: 8300000, guid: 8af4db4f6a764df4098879b1e28b3f5e, type: 3}
+  - {fileID: 8300000, guid: abae0a6c3e5d5a84aaa51a35b427394f, type: 3}
+  - {fileID: 8300000, guid: f847b5a06b3cadd4f8026ffe9240bcd5, type: 3}
+  - {fileID: 8300000, guid: db145f7479c02454eb38154a40942a4f, type: 3}
+  - {fileID: 8300000, guid: 020e9203117a05541a4794910431f2b4, type: 3}
+  - {fileID: 8300000, guid: 75e20b3c319d6e4498a9c05a81587495, type: 3}
+  - {fileID: 8300000, guid: 62d7984bd82376e40b5abbad960d9c6d, type: 3}
   inRightPlace: 0
 --- !u!114 &449420543
 MonoBehaviour:
@@ -2023,7 +2031,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

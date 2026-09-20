@@ -63,15 +63,15 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                             break;
 
                         case "b2":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[5]);
                             break;
 
                         case "Cement":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[9]);
                             break;
 
                         case "e46":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[6]);
                             break;
 
                         case "e61":
@@ -79,23 +79,23 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                             break;
 
                         case "Excavator":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[8]);
                             break;
 
                         case "Police":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[7]);
                             break;
 
-                        case "YellowTractor":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                        case "Yellow Tractor":
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[11]);
                             break;
 
                         case "GreenTractor":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[10]);
                             break;
 
                         case "Firefighters":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
+                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[12]);
                             break;
 
                         default:
@@ -156,7 +156,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                              gameObjectsScript.policeCoord;
                         break;
 
-                    case "YellowTractor":
+                    case "Yellow Tractor":
                         gameObjectsScript.yellowTractor.GetComponent<RectTransform>().localPosition =
                              gameObjectsScript.yellowTractorCoord;
                         break;
