@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameObjectsScript : MonoBehaviour
@@ -6,7 +6,7 @@ public class GameObjectsScript : MonoBehaviour
     [Header("Vehicle spawnpoints")]
     public Transform[] spawnpoints;
 
-    [Header("Vehicle objects")]
+    [HideInInspector]
     public GameObject[] vehicleObjects;
 
     public GameObject garbageTruck;
@@ -62,12 +62,8 @@ public class GameObjectsScript : MonoBehaviour
     
     void Awake()
     {
-
         //firefighters.transform.position = spawnpoint1.transform.position;
-        for(int i=0; i<13; i++)
-        {
-
-        }
+        PlaceVehiclesRandomly();
 
         garbageTruckCoord = garbageTruck.GetComponent<RectTransform>().localPosition;
         medicineCoord = medicine.GetComponent<RectTransform>().localPosition;
@@ -81,5 +77,43 @@ public class GameObjectsScript : MonoBehaviour
         yellowTractorCoord = yellowTractor.GetComponent<RectTransform>().localPosition;
         greenTractorCoord = greenTractor.GetComponent<RectTransform>().localPosition;
         firefightersCoord = firefighters.GetComponent<RectTransform>().localPosition;
+    }
+
+    void PlaceVehiclesRandomly()
+    {
+        vehicleObjects = new GameObject[]
+        {
+            garbageTruck, medicine, schoolBus, b2, cementTruck, e46,
+            e61, excavator, police, yellowTractor, greenTractor, firefighters
+        };
+
+        if (spawnpoints == null || spawnpoints.Length == 0)
+        {
+            Debug.LogWarning("No spawnpoints assigned - vehicles stay where they are.");
+            return;
+        }
+
+        List<Transform> spawnpointsCopy = new List<Transform>();
+        foreach (Transform spawnpoint in spawnpoints)
+        {
+            if (spawnpoint != null)
+                spawnpointsCopy.Add(spawnpoint);
+        }
+
+        if (spawnpointsCopy.Count < vehicleObjects.Length)
+        {
+            Debug.LogWarning("There are less spawnpoints than vehicles - some vehicles won't be moved.");
+        }
+
+        foreach (GameObject vehicle in vehicleObjects)
+        {
+            if (vehicle == null) continue;
+            if (spawnpointsCopy.Count == 0) break;
+
+            int index = Random.Range(0, spawnpointsCopy.Count);
+
+            vehicle.transform.position = spawnpointsCopy[index].position;
+            spawnpointsCopy.RemoveAt(index);
+        }
     }
 }
