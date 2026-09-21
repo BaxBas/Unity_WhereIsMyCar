@@ -1,7 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class GameObjectsScript : MonoBehaviour
 {
+    [Header("Vehicle spawnpoints")]
+    public Transform[] spawnpoints;
+
+    [Header("Vehicle objects")]
+    public GameObject[] vehicleObjects;
+
     public GameObject garbageTruck;
     public GameObject medicine;
     public GameObject schoolBus;
@@ -55,6 +62,13 @@ public class GameObjectsScript : MonoBehaviour
     
     void Awake()
     {
+
+        //firefighters.transform.position = spawnpoint1.transform.position;
+        for(int i=0; i<13; i++)
+        {
+
+        }
+
         garbageTruckCoord = garbageTruck.GetComponent<RectTransform>().localPosition;
         medicineCoord = medicine.GetComponent<RectTransform>().localPosition;
         schoolBusCoord = schoolBus.GetComponent<RectTransform>().localPosition;
