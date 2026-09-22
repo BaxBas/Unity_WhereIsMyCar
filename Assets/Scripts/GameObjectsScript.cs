@@ -4,7 +4,26 @@ using UnityEngine;
 public class GameObjectsScript : MonoBehaviour
 {
     [Header("Vehicle spawnpoints")]
-    public Transform[] spawnpoints;
+    public Transform[] vehicleSpawnpoints;
+
+    [Header("Vehicle places spawnpoints")]
+    public Transform[] placesSpawnpoints;
+
+    [HideInInspector]
+    public GameObject[] vehiclePlaces;
+
+    public GameObject garbageTruckPlace;
+    public GameObject medicinePlace;
+    public GameObject schoolBusPlace;
+    public GameObject b2Place;
+    public GameObject cementTruckPlace;
+    public GameObject e46Place;
+    public GameObject e61Place;
+    public GameObject excavatorPlace;
+    public GameObject policePlace;
+    public GameObject yellowTractorPlace;
+    public GameObject greenTractorPlace;
+    public GameObject firefightersPlace;
 
     [HideInInspector]
     public GameObject[] vehicleObjects;
@@ -21,8 +40,6 @@ public class GameObjectsScript : MonoBehaviour
     public GameObject yellowTractor;
     public GameObject greenTractor;
     public GameObject firefighters;
-
-    // Vēlāk jāpievieno pārējās mašīnas un to sākuma koordinātas...
 
     [HideInInspector] 
     public Vector2 garbageTruckCoord;
@@ -62,7 +79,7 @@ public class GameObjectsScript : MonoBehaviour
     
     void Awake()
     {
-        //firefighters.transform.position = spawnpoint1.transform.position;
+        PlaceVehiclePlacesRandomly();
         PlaceVehiclesRandomly();
 
         garbageTruckCoord = garbageTruck.GetComponent<RectTransform>().localPosition;
@@ -79,6 +96,44 @@ public class GameObjectsScript : MonoBehaviour
         firefightersCoord = firefighters.GetComponent<RectTransform>().localPosition;
     }
 
+    void PlaceVehiclePlacesRandomly()
+    {
+        vehiclePlaces = new GameObject[]
+        {
+            garbageTruckPlace, medicinePlace, schoolBusPlace, b2Place, cementTruckPlace, e46Place,
+            e61Place, excavatorPlace, policePlace, yellowTractorPlace, greenTractorPlace, firefightersPlace
+        };
+
+        if (placesSpawnpoints == null || placesSpawnpoints.Length == 0)
+        {
+            Debug.LogWarning("No spawnpoints assigned - vehicles stay where they are.");
+            return;
+        }
+
+        List<Transform> spawnpointsCopy = new List<Transform>();
+        foreach (Transform spawnpoint in placesSpawnpoints)
+        {
+            if (spawnpoint != null)
+                spawnpointsCopy.Add(spawnpoint);
+        }
+
+        if (spawnpointsCopy.Count < vehiclePlaces.Length)
+        {
+            Debug.LogWarning("There are less spawnpoints than vehicles - some vehicles won't be moved.");
+        }
+
+        foreach (GameObject place in vehiclePlaces)
+        {
+            if (place == null) continue;
+            if (spawnpointsCopy.Count == 0) break;
+
+            int index = Random.Range(0, spawnpointsCopy.Count);
+
+            place.transform.position = spawnpointsCopy[index].position;
+            spawnpointsCopy.RemoveAt(index);
+        }
+    }
+
     void PlaceVehiclesRandomly()
     {
         vehicleObjects = new GameObject[]
@@ -87,14 +142,14 @@ public class GameObjectsScript : MonoBehaviour
             e61, excavator, police, yellowTractor, greenTractor, firefighters
         };
 
-        if (spawnpoints == null || spawnpoints.Length == 0)
+        if (vehicleSpawnpoints == null || vehicleSpawnpoints.Length == 0)
         {
             Debug.LogWarning("No spawnpoints assigned - vehicles stay where they are.");
             return;
         }
 
         List<Transform> spawnpointsCopy = new List<Transform>();
-        foreach (Transform spawnpoint in spawnpoints)
+        foreach (Transform spawnpoint in vehicleSpawnpoints)
         {
             if (spawnpoint != null)
                 spawnpointsCopy.Add(spawnpoint);
