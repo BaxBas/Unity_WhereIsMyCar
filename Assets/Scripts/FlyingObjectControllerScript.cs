@@ -135,7 +135,7 @@ public class FlyingObjectControllerScript : MonoBehaviour
         ExplodeAndDestroyNearbyObjects(radius);
 
         // eksplode tos, kuri ielido radiusaa spradziena laikaa
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         ExplodeAndDestroyNearbyObjects(radius);
         Destroy(gameObject);
     }
