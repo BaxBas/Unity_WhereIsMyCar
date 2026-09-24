@@ -80,7 +80,7 @@ public class ObjectTransformationScript : MonoBehaviour
         }
     }
 
-    //cooldown priekð flippoðanas
+    //cooldown priekš flippošanas
     private System.Collections.IEnumerator FlipCooldown()
     {
         canFlip = false;

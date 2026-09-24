@@ -8,6 +8,7 @@ public class DragAndDropScript : MonoBehaviour,
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     public ScreenBoundariesScript screenBoundariesScript;
+    public Animator anim;
 
     void Awake()
     {
@@ -84,6 +85,7 @@ public class DragAndDropScript : MonoBehaviour,
 
             if(gameObjectsScript.inRightPlace)
             {
+                anim.SetBool("placed", true);
                 canvasGroup.blocksRaycasts = false;
                 GameObjectsScript.lastDragged = null;
             }
