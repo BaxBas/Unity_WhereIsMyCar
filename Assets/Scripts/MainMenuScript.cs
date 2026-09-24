@@ -21,6 +21,12 @@ public class MainMenuScript : MonoBehaviour
         StartCoroutine(WaitForFade());
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game is exiting");
+    }
+
     private void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
