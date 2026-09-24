@@ -28,11 +28,11 @@ Kamēr mašīna tiek vilkta, ir **jāuzmanās no dažādiem šķēršļiem**, ku
 - [x] Pievienot iespēju apgriezt mašīnu ar atstarpi
 - [x] Papildināt GameObjectScript, lai mašīnas un viņu vietas tiktu nejauši (random) izvietotas iepriekš izveidotos punktos
 - [x] Izveidot sākuma ekrānu ar animāciju fonā
-- [ ] Izveidot "Iziet" pogu
+- [x] Izveidot "Iziet" pogu
 - [ ] Papildināt pilsētas ainu ar animētiem objektiem
-- [ ] Izveidot animāciju, kad mašīna tiek novietota korekti
+- [ ] Izveidot animāciju, kad mašīna tiek novietota korekti (pagaidām animācija ir savienota animatora, bet nestrādā novietošana)
 - [ ] Izveidot dzīvību sistēmu
-- [ ] Izveidot taimeri, kad pilsētas aina tiek uzsākta
+- [x] Izveidot taimeri, kad pilsētas aina tiek uzsākta
 - [ ] Izveidot spēles uzvaras logu
 
 ## Izmantotās tehnoloģijas
