@@ -35,7 +35,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 Debug.Log("Diff Y Size: " + ySizeDiff);
 
                 if((diffZRot <= 7 || (diffZRot >= 353 && diffZRot <= 360)) &&
-                    (xSizeDiff <= 0.7f && ySizeDiff <= 0.7f))
+                    (xSizeDiff <= 0.4f && ySizeDiff <= 0.4f))
                 {
                     Debug.Log("Car placed correctly!");
                     gameObjectsScript.inRightPlace = true;

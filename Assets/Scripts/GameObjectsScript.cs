@@ -171,4 +171,31 @@ public class GameObjectsScript : MonoBehaviour
             spawnpointsCopy.RemoveAt(index);
         }
     }
+
+    public void CheckWinCondition()
+    {
+        bool hasAnyCarLeft = false;
+
+        foreach (GameObject vehicle in vehicleObjects)
+        {
+            // skip cars that were destroyed
+            if (vehicle == null) continue;
+
+            hasAnyCarLeft = true;
+
+            Animator anim = vehicle.GetComponentInChildren<Animator>();
+
+            // if an existing car hasn't been placed yet, they haven't won
+            if (anim != null && !anim.GetBool("placed"))
+            {
+                return;
+            }
+        }
+
+        if (hasAnyCarLeft)
+        {
+            Debug.Log("YOU WIN! All existing cars placed.");
+            // winScreen.SetActive(true);
+        }
+    }
 }

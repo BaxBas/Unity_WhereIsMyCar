@@ -85,6 +85,7 @@ public class DragAndDropScript : MonoBehaviour,
 
             if(gameObjectsScript.inRightPlace)
             {
+                GameObjectsScript.lastDragged.GetComponent<Rigidbody>().isKinematic = false;
                 anim.SetBool("placed", true);
                 canvasGroup.blocksRaycasts = false;
                 GameObjectsScript.lastDragged = null;
