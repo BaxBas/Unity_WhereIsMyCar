@@ -17,6 +17,9 @@ TagManager:
   - GreenTractor
   - Firefighters
   - Bomb
+  - RewardedAdButton
+  - InterstitialAdButton
+  - BannerAdButton
   layers:
   - Default
   - TransparentFX
