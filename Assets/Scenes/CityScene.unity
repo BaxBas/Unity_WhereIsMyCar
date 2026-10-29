@@ -1314,7 +1314,9 @@ MonoBehaviour:
   - {fileID: 4542344481337198796, guid: 8bf8b6d2e9e0c04429745f899fdd2151, type: 3}
   - {fileID: 3274977882909257399, guid: 1fc459fedfe57324da5320b34acbd108, type: 3}
   - {fileID: 1455055834873020398, guid: e61ab69723462e94a8b9d84f623e49d9, type: 3}
-  plainPrefabs: []
+  plainPrefabs:
+  - {fileID: 6576939668689898540, guid: d92b7646641b2ba45af0ea69bf0d5c43, type: 3}
+  - {fileID: 6528468014676093411, guid: 210c58832931dd9429e96ab758ef65f0, type: 3}
   spawnPoint: {fileID: 1347118520}
   cloudSpawnInterval: 4
   plainSpawnInterval: 3
@@ -5684,7 +5686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AndroidAdUnitId: BP_Rewarded_Android
   _bannerButton: {fileID: 697681655}
-  isBannerVisible: 0
+  isBannerVisible: 1
   bannerPosition: 4
 --- !u!114 &1881937520
 MonoBehaviour:

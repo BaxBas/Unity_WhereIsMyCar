@@ -4,6 +4,7 @@ public class ScreenBoundariesScript : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 screenPoint, offset;
+    // -- Kļūda (vienīgā)   [HideInInspector] --
     public Rect worldBounds = new Rect(-10f, -5f, 20f, 10f);
     [Range(0f, 0.5f)]
     public float reductionFactor = 0.02f; //2% no ekrāna izmēra 
@@ -18,7 +19,7 @@ public class ScreenBoundariesScript : MonoBehaviour
     float lastAspect;
     Vector3 lastCamPos;
 
-    void Awake()
+    void Start()
     {
         if (mainCamera == null)
         {
