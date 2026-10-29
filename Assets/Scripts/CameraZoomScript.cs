@@ -44,7 +44,6 @@ public class CameraZoomScript : MonoBehaviour
     private void Start()
     {
         screenBoundariesScript.RecalculateBounds();
-        // -- 3. kļūda --- izsaucu nepareizo metodi
         transform.position = screenBoundariesScript.GetClampedCameraPosition(transform.position);
     }
 
@@ -69,14 +68,12 @@ public class CameraZoomScript : MonoBehaviour
         if (Input.touchCount == 2)
             HandlePinch();
 
-        UpdateMaxZoom();
+        //UpdateMaxZoom();
         mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
         screenBoundariesScript.RecalculateBounds();
-        // -- 4. kļūda ---
         transform.position = screenBoundariesScript.GetClampedCameraPosition(transform.position);
     }
 
-    // -- 1. kļūda ---
     void HandleTouch()
     {
         if (Input.touchCount != 1)
@@ -138,7 +135,6 @@ public class CameraZoomScript : MonoBehaviour
         Vector3.Lerp(transform.position, targetPosition, mouseFollowSpeed * Time.unscaledDeltaTime);
     }
 
-    // -- 2. kļūda --- esošais kods iet iekšā HandleTouc()
     void HandlePinch()
     {
         Touch touch0 = Input.GetTouch(0), 
@@ -188,7 +184,6 @@ public class CameraZoomScript : MonoBehaviour
             mainCamera.orthographicSize = 
                 Mathf.Lerp(currentZoom, targetZoom, elpased / duration);
            screenBoundariesScript.RecalculateBounds();
-            // -- 5. kļūda ---
             transform.position = 
                 screenBoundariesScript.GetClampedCameraPosition(transform.position);
 
@@ -197,20 +192,19 @@ public class CameraZoomScript : MonoBehaviour
 
         mainCamera.orthographicSize = targetZoom;
         screenBoundariesScript.RecalculateBounds();
-        // -- 5. kļūda ---
         transform.position = 
             screenBoundariesScript.GetClampedCameraPosition(transform.position);
     }
 
-    void UpdateMaxZoom()
-    {
-       if(screenBoundariesScript == null || mainCamera == null)
-            return;
+    //void UpdateMaxZoom()
+    //{
+    //   if(screenBoundariesScript == null || mainCamera == null)
+    //        return;
 
-        Rect wb = screenBoundariesScript.worldBounds;
+    //    Rect wb = screenBoundariesScript.worldBounds;
 
-        float maxZoomByHeight = wb.height / 2f;
-        float maxZoomByWidth = (wb.width / 2f) / mainCamera.aspect;
-        maxZoom = Mathf.Min(maxZoomByHeight, maxZoomByWidth);
-    }
+    //    float maxZoomByHeight = wb.height / 2f;
+    //    float maxZoomByWidth = (wb.width / 2f) / mainCamera.aspect;
+    //    maxZoom = Mathf.Min(maxZoomByHeight, maxZoomByWidth);
+    //}
 }
