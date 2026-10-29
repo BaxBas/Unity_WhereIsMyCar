@@ -5636,7 +5636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dac010199515ce4188d56bea12cca14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidAdUnitId: Interstitial_Android
+  _androidAdUnitId: BP_Interstitial_Android
   isReady: 0
   _interstitialAdButton: {fileID: 671371999}
 --- !u!114 &1881937517
@@ -5682,7 +5682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a616b1c52466ed345b775e75d6c5b53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AndroidAdUnitId: Banner_Android
+  _AndroidAdUnitId: BP_Rewarded_Android
   _bannerButton: {fileID: 697681655}
   isBannerVisible: 0
   bannerPosition: 4
@@ -5698,7 +5698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4c72923e7ec634e97a22a74bcd2800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidAdUnitId: Rewarded_Android
+  _androidAdUnitId: BP_Rewarded_Android
   _rewardedAdButton: {fileID: 1179981443}
   flyingObjectManager: {fileID: 1881937518}
 --- !u!1 &1916264446
