@@ -1,7 +1,13 @@
 using UnityEngine;
 
+
 public class ScreenBoundariesScript : MonoBehaviour
 {
+    [Tooltip("Background/playfield RectTransform that defines the world bounds")]
+    public RectTransform boundsSource;
+
+    readonly Vector3[] corners = new Vector3[4];
+
     [HideInInspector]
     public Vector3 screenPoint, offset;
     // -- Kļūda (vienīgā)   [HideInInspector] --
@@ -19,14 +25,24 @@ public class ScreenBoundariesScript : MonoBehaviour
     float lastAspect;
     Vector3 lastCamPos;
 
-    void Start()
+    void Awake()
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
+        if (mainCamera == null) mainCamera = Camera.main;
 
+        Canvas.ForceUpdateCanvases();   // make sure UI sizes are final
+        UpdateWorldBounds();
         RecalculateBounds();
+    }
+
+    public void UpdateWorldBounds()
+    {
+        if (boundsSource == null) return;   // falls back to the Inspector value
+
+        boundsSource.GetWorldCorners(corners);  // 0 = bottom-left, 2 = top-right
+        worldBounds = new Rect(
+            corners[0].x, corners[0].y,
+            corners[2].x - corners[0].x,
+            corners[2].y - corners[0].y);
     }
 
     void Update()

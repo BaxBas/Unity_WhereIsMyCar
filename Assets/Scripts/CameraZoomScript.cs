@@ -27,6 +27,11 @@ public class CameraZoomScript : MonoBehaviour
     public float doubleTapMaxDelay = 0.4f;
     public float doubleTapMaxDistance = 100f;
 
+    [Header("Desktop Edge Pan")]
+    public float edgePanSpeed = 300f;     // world units per second at full push
+    [Range(0f, 0.95f)]
+    public float deadZone = 0.6f;
+
 
     void Awake()
     {
@@ -120,19 +125,26 @@ public class CameraZoomScript : MonoBehaviour
 
     void DesktopFollowCursor()
     {
-        Vector3 mousePos = Input.mousePosition;
-        if(mousePos.x < 0 || mousePos.x > Screen.width ||
-            mousePos.y < 0 || mousePos.y > Screen.height)
-        {
+        Vector2 mouse = Input.mousePosition;
+        if (mouse.x < 0 || mouse.x > Screen.width ||
+            mouse.y < 0 || mouse.y > Screen.height)
             return;
-        }
 
-        Vector3 screenPoint = new Vector3(mousePos.x, mousePos.y, mainCamera.nearClipPlane);
-        Vector3 targetWorld = mainCamera.ScreenToWorldPoint(screenPoint);
-        Vector3 targetPosition = new Vector3(targetWorld.x, targetWorld.y, transform.position.z);
+        // -1..1 from the screen center
+        Vector2 norm = new Vector2(
+            (mouse.x / Screen.width - 0.5f) * 2f,
+            (mouse.y / Screen.height - 0.5f) * 2f);
 
-        transform.position = 
-        Vector3.Lerp(transform.position, targetPosition, mouseFollowSpeed * Time.unscaledDeltaTime);
+        Vector2 dir = new Vector2(ApplyDeadZone(norm.x), ApplyDeadZone(norm.y));
+
+        transform.position += (Vector3)(dir * edgePanSpeed * Time.unscaledDeltaTime);
+    }
+
+    float ApplyDeadZone(float v)
+    {
+        float a = Mathf.Abs(v);
+        if (a < deadZone) return 0f;
+        return Mathf.Sign(v) * (a - deadZone) / (1f - deadZone);
     }
 
     void HandlePinch()

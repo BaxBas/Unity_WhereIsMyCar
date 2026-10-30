@@ -56,14 +56,14 @@ public class FlyingObjectControllerScript : MonoBehaviour
          rectTransform.anchoredPosition += 
             new Vector2(-speed * Time.deltaTime, waveOffset * Time.deltaTime);
 
-        if(speed > 0 && transform.position.x < (screenBoundariesScript.worldBounds.xMin + 40) 
+        if(speed > 0 && transform.position.x < (screenBoundariesScript.worldBounds.xMin + 80) 
             && !isFadingOut)
         {
            StartCoroutine(FadeOutAndDestroy());
             isFadingOut = true;
         }
 
-        if (speed < 0 && transform.position.x > (screenBoundariesScript.worldBounds.xMax - 40) 
+        if (speed < 0 && transform.position.x > (screenBoundariesScript.worldBounds.xMax - 80) 
             && !isFadingOut)
         {
             StartCoroutine(FadeOutAndDestroy());
