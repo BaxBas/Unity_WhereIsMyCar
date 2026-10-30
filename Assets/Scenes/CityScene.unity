@@ -1274,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a805cf77ad8f14997876bb8f600053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundsSource: {fileID: 78528970}
   screenPoint: {x: 0, y: 0, z: 0}
   offset: {x: 0, y: 0, z: 0}
   worldBounds:
@@ -1283,7 +1284,7 @@ MonoBehaviour:
     width: 20
     height: 10
   reductionFactor: 0.02
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 519420031}
 --- !u!114 &449420544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1533,6 +1534,8 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   doubleTapMaxDelay: 0.4
   doubleTapMaxDistance: 100
+  edgePanSpeed: 300
+  deadZone: 0.6
 --- !u!1 &535074238
 GameObject:
   m_ObjectHideFlags: 0

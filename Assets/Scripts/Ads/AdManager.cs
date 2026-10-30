@@ -9,7 +9,7 @@ public class AdManager : MonoBehaviour
     [SerializeField] bool turnOffInterstitialAds = false;
     private bool firstAdShown = false;
 
-    public RewardedAds rewardedAds;
+    public HanoiRewardedAds rewardedAds;
     [SerializeField] bool turnOffRewardedAds = false;
 
     public BannerAd bannerAd;
@@ -99,7 +99,7 @@ public class AdManager : MonoBehaviour
         }
 
         if (rewardedAds == null)
-            rewardedAds = FindFirstObjectByType<RewardedAds>();
+            rewardedAds = FindFirstObjectByType<HanoiRewardedAds>();
 
         GameObject rewardButtonObj = GameObject.FindWithTag("RewardedAdButton");
         if (rewardButtonObj != null && rewardedAds != null)
