@@ -1,100 +1,26 @@
+using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PoleScript : MonoBehaviour, IDropHandler
+public class PoleScript : MonoBehaviour
 {
-    private float placeZRot, carZRot, diffZRot;
-    private Vector3 placeSize, carSize;
-    private float xSizeDiff, ySizeDiff;
-    public GameObjectsScript gameObjectsScript;
+    public static readonly List<PoleScript> All = new List<PoleScript>();
 
+    private RectTransform rectTransform;
+    private readonly Vector3[] corners = new Vector3[4];
 
-    void Awake()
+    void Awake() { rectTransform = GetComponent<RectTransform>(); }
+    void OnEnable() { All.Add(this); }
+    void OnDisable() { All.Remove(this); }
+
+    public Rect GetWorldRect()
     {
-        gameObjectsScript = Object.FindFirstObjectByType<GameObjectsScript>();
+        rectTransform.GetWorldCorners(corners);   // 0 = bottom-left, 2 = top-right
+        return new Rect(corners[0].x, corners[0].y,
+                        corners[2].x - corners[0].x,
+                        corners[2].y - corners[0].y);
     }
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag == null)
-            return;
-
-
-            if (eventData.pointerDrag.tag.Equals(tag))
-            {
-                placeZRot = 
-                    eventData.pointerDrag.GetComponent<RectTransform>().transform.eulerAngles.z;
-                carZRot = GetComponent<RectTransform>().transform.eulerAngles.z;
-                diffZRot = Mathf.Abs(placeZRot - carZRot);
-                Debug.Log("Diff Z Rot: " + diffZRot);
-
-                placeSize = eventData.pointerDrag.GetComponent<RectTransform>().localScale;
-                carSize = GetComponent<RectTransform>().localScale;
-                xSizeDiff = Mathf.Abs(placeSize.x - carSize.x);
-                ySizeDiff = Mathf.Abs(placeSize.y - carSize.y);
-                Debug.Log("Diff X Size: " + xSizeDiff);
-                Debug.Log("Diff Y Size: " + ySizeDiff);
-
-                if((diffZRot <= 7 || (diffZRot >= 353 && diffZRot <= 360)) &&
-                    (xSizeDiff <= 0.08f && ySizeDiff <= 0.08f))
-                {
-                    Debug.Log("Car placed correctly!");
-                    gameObjectsScript.inRightPlace = true;
-                    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
-                        GetComponent<RectTransform>().anchoredPosition;
-
-                    eventData.pointerDrag.GetComponent<RectTransform>().localScale =
-                        GetComponent<RectTransform>().localScale;
-
-                    eventData.pointerDrag.GetComponent<RectTransform>().localRotation =
-                        GetComponent<RectTransform>().localRotation;
-
-                    switch(eventData.pointerDrag.tag)
-                    {
-                        case "Garbage":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[1]);
-                            break;
-
-                        case "Ambulance":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[2]);
-                            break;
-
-                        case "School":
-                            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[3]);
-                            break;
-
-                        default:
-                            Debug.Log("No matching tag found for the dropped object.");
-                            break;
-                    }
-                }
-
-            } else
-            {
-                gameObjectsScript.inRightPlace = false;
-                gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[4]);
-
-                switch(eventData.pointerDrag.tag)
-                {
-                    case "Garbage":
-                        gameObjectsScript.garbageTruck.GetComponent<RectTransform>().localPosition =
-                            gameObjectsScript.garbageTruckCoord;
-                        break;
-
-                    case "Ambulance":
-                       gameObjectsScript.medicine.GetComponent<RectTransform>().localPosition =
-                            gameObjectsScript.medicineCoord;
-                        break;
-
-                    case "School":
-                       gameObjectsScript.schoolBus.GetComponent<RectTransform>().localPosition =
-                            gameObjectsScript.schoolBusCoord;
-                        break;
-
-                    default:
-                        Debug.Log("No matching tag found for the dropped object.");
-                        break;
-                }
-            }
-    }
+    public void OnBlockDropped(BlockDragAndDropScript block) { }
 }

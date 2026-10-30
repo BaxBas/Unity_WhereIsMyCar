@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,9 +8,20 @@ public class BlockDragAndDropScript : MonoBehaviour,
     [Tooltip("Optional. Leave empty to allow dragging anywhere.")]
     public ScreenBoundariesScript screenBoundariesScript;
 
+    public float returnDuration = 0.2f;
+    [HideInInspector] public bool droppedOnPole; // priekð staba skripta OnDrop
+
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private Vector3 dragOffset;
+    private Vector3 startPosition;
+    private int startSiblingIndex;
+
+    [Range(0f, 1f)]
+    [Tooltip("Fraction of the block that must overlap a pole to count as dropped on it")]
+    public float minOverlap = 0.15f;
+
+    private readonly Vector3[] corners = new Vector3[4];
 
     void Awake()
     {
@@ -23,6 +35,44 @@ public class BlockDragAndDropScript : MonoBehaviour,
             screenBoundariesScript = Object.FindFirstObjectByType<ScreenBoundariesScript>();
     }
 
+    // pârvçrs recttranform taisnstûrî, lai strâdâtu uz jebkura ekrâna izmçra
+    Rect GetWorldRect()
+    {
+        rectTransform.GetWorldCorners(corners);
+        return new Rect(corners[0].x, corners[0].y,
+                        corners[2].x - corners[0].x,
+                        corners[2].y - corners[0].y);
+    }
+
+    // aprçíina bloka un staba pârklâðanâs zonu
+    static float OverlapArea(Rect a, Rect b)
+    {
+        float w = Mathf.Min(a.xMax, b.xMax) - Mathf.Max(a.xMin, b.xMin);
+        float h = Mathf.Min(a.yMax, b.yMax) - Mathf.Max(a.yMin, b.yMin);
+        return (w > 0f && h > 0f) ? w * h : 0f;
+    }
+
+    // atrod to stabu, kuru pârklâj visvairâk (vajadzîgs situâcijâs, kad bloks pârklâj 2 stabus)
+    PoleScript FindOverlappingPole()
+    {
+        Rect blockRect = GetWorldRect();
+        float blockArea = blockRect.width * blockRect.height;
+
+        PoleScript best = null;
+        float bestArea = 0f;
+
+        foreach (PoleScript pole in PoleScript.All)
+        {
+            float area = OverlapArea(blockRect, pole.GetWorldRect());
+            if (area > bestArea && area >= blockArea * minOverlap)
+            {
+                bestArea = area;
+                best = pole;
+            }
+        }
+        return best;
+    }
+
     private bool PointerToWorld(PointerEventData eventData, out Vector3 world)
     {
         RectTransform parentRect = rectTransform.parent as RectTransform;
@@ -32,6 +82,12 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        StopAllCoroutines(); // atceï atgrieðanâs animâciju, ja tâda ðobrîd notiek
+
+        startPosition = transform.position;
+        startSiblingIndex = transform.GetSiblingIndex();
+        droppedOnPole = false;
+
         BlockObjectsScript.isDragging = true;
         BlockObjectsScript.lastDragged = gameObject;
 
@@ -71,5 +127,29 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        PoleScript pole = FindOverlappingPole();
+        droppedOnPole = pole != null;
+
+        if (pole != null)
+            pole.OnBlockDropped(this);
+        else
+            StartCoroutine(ReturnToStart());
+    }
+
+    IEnumerator ReturnToStart()
+    {
+        Vector3 from = transform.position;
+        float t = 0f;
+
+        while (t < returnDuration)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(from, startPosition, t / returnDuration);
+            yield return null;
+        }
+
+        transform.position = startPosition;
+        transform.SetSiblingIndex(startSiblingIndex);
     }
 }
