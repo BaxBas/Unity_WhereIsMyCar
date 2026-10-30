@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PoleDropPlaceScript : MonoBehaviour, IDropHandler
+public class PoleScript : MonoBehaviour, IDropHandler
 {
     private float placeZRot, carZRot, diffZRot;
     private Vector3 placeSize, carSize;

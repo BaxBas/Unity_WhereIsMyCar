@@ -1,126 +1,75 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BlockDragAndDropScript : MonoBehaviour, 
-    IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BlockDragAndDropScript : MonoBehaviour,
+    IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public GameObjectsScript gameObjectsScript;
-    private CanvasGroup canvasGroup;
+    [Tooltip("Optional. Leave empty to allow dragging anywhere.")]
     public ScreenBoundariesScript screenBoundariesScript;
-    public Animator anim;
 
-    private Vector3 dragOffsetWorld;
-    private Camera mainCamera;
-    private Canvas canvas;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
+    private Vector3 dragOffset;
 
     void Awake()
     {
+        rectTransform = GetComponent<RectTransform>();
+
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
-        {
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
-        }
 
-        if(gameObjectsScript == null)
-        {
-            gameObjectsScript = Object.FindFirstObjectByType<GameObjectsScript>();
-        }
-        if(screenBoundariesScript == null)
-        {
+        if (screenBoundariesScript == null)
             screenBoundariesScript = Object.FindFirstObjectByType<ScreenBoundariesScript>();
-        }
-
-        canvas = GetComponentInParent<Canvas>();
-        if(canvas != null)
-        {
-            mainCamera = canvas.worldCamera;
-        }
-        else
-            Debug.LogWarning("Canvas not found in parent hierarchy of " + gameObject.name);
     }
 
-
-    public void OnPointerDown(PointerEventData eventData)
+    private bool PointerToWorld(PointerEventData eventData, out Vector3 world)
     {
-        Debug.Log("Clicked on " + gameObject.name);
-
-        if (gameObjectsScript.carSoundSource != null && gameObjectsScript.sounds != null)
-        {
-            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[0]);
-        }
+        RectTransform parentRect = rectTransform.parent as RectTransform;
+        return RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            parentRect, eventData.position, eventData.pressEventCamera, out world); // pârvçrs kursora pozîciju (pret kameras ekrânu) uz world space pozîciju
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Start drag!");
-        GameObjectsScript.isDragging = true;
+        BlockObjectsScript.isDragging = true;
+        BlockObjectsScript.lastDragged = gameObject;
+
         canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false;
-        int lastIndex = transform.parent.childCount - 1;
-        int positionIndex = Mathf.Max(0, lastIndex - 1);
-        transform.SetSiblingIndex(positionIndex);
+        canvasGroup.blocksRaycasts = false; // padara bloku "neredzamu" event sistemai, kas ïauj stabam zem bloka saòemt OnDrop
+        transform.SetAsLastSibling();
 
-        Vector3 cursorWorldPos;
-
-        if(ScreenToWorldPoint(eventData.position, out cursorWorldPos))
-        {
-            dragOffsetWorld = transform.position - cursorWorldPos;
-        }
-        else
-        {
-            dragOffsetWorld = Vector3.zero;
-        }
-        GameObjectsScript.lastDragged = eventData.pointerDrag;
-    }
-
-    private bool ScreenToWorldPoint(Vector2 screenPosition, out Vector3 worldPositon)
-    {
-        worldPositon = Vector3.zero;
-        if(mainCamera == null)
-        {
-            Debug.LogWarning("Main camera is not assigned!");
-            return false;
-        }
-
-        float z = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
-        Vector3 screenPoint = new Vector3(screenPosition.x, screenPosition.y, z);
-        worldPositon = mainCamera.ScreenToWorldPoint(screenPoint);
-        return true;
+        Vector3 pointerWorld;
+        dragOffset = PointerToWorld(eventData, out pointerWorld) ? transform.position - pointerWorld : Vector3.zero; // bez ðîs atstarpes bloks tiktu pabîdîts, lai viòa centrs bûtu uz kursora
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         Vector3 pointerWorld;
-        if (!ScreenToWorldPoint(eventData.position, out pointerWorld)){
+        if (!PointerToWorld(eventData, out pointerWorld))
             return;
+
+        // kur blokam vajadzçtu bût, saglabâjot atstarpi starp bloka centru un kursoru
+        Vector3 desired = pointerWorld + dragOffset; 
+        desired.z = transform.position.z;
+
+        // ja ir scripts, tad getclampedposition piespieþ desired bût iekð atïautâs zonas
+        if (screenBoundariesScript != null)
+        {
+            Vector2 clamped = screenBoundariesScript.GetClampedPosition(desired);
+            desired = new Vector3(clamped.x, clamped.y, desired.z);
         }
-            Vector3 desired = pointerWorld + dragOffsetWorld;
-            desired.z = transform.position.z;
 
-        screenBoundariesScript.RecalculateBounds();
-        Vector2 clamped = screenBoundariesScript.GetClampedPosition(desired);
-
-        transform.position = new Vector3(clamped.x, clamped.y, desired.z);
+        transform.position = desired;
     }
 
+    // padara bloku atkal "normâlu" (ieslçdz atpakaï blocksraycasts, lai to varçtu atkal paòemt utt.)
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(gameObjectsScript.carSoundSource != null && gameObjectsScript.sounds != null)
-        {
-            gameObjectsScript.carSoundSource.PlayOneShot(gameObjectsScript.sounds[0]);
-            GameObjectsScript.isDragging = false;
-            Debug.Log("OnEndDrag called for " + gameObject.name);
-            canvasGroup.alpha = 1f;
-            canvasGroup.blocksRaycasts = true;
+        BlockObjectsScript.isDragging = false;
+        BlockObjectsScript.lastDragged = null;
 
-            if (gameObjectsScript.inRightPlace)
-            {
-                GameObjectsScript.lastDragged.GetComponent<Rigidbody>().isKinematic = false;
-                anim.SetBool("placed", true);
-                canvasGroup.blocksRaycasts = false;
-                GameObjectsScript.lastDragged = null;
-            }
-
-            gameObjectsScript.inRightPlace = false;
-        }
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
     }
 }

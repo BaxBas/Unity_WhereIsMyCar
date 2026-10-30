@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 141145427}
   - component: {fileID: 141145426}
   - component: {fileID: 141145428}
+  - component: {fileID: 141145429}
   m_Layer: 5
   m_Name: 5block
   m_TagString: Untagged
@@ -484,6 +485,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 677.4701, y: 166.8128}
   m_EdgeRadius: 0
+--- !u!225 &141145429
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141145424}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &147423012
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +730,8 @@ GameObject:
   - component: {fileID: 418702109}
   - component: {fileID: 418702108}
   - component: {fileID: 418702110}
+  - component: {fileID: 418702112}
+  - component: {fileID: 418702111}
   m_Layer: 5
   m_Name: 2block
   m_TagString: Untagged
@@ -827,6 +842,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 393.44516, y: 132.82693}
   m_EdgeRadius: 0
+--- !u!225 &418702111
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418702106}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &418702112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418702106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 0}
 --- !u!1 &544435894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,6 +1208,8 @@ GameObject:
   - component: {fileID: 703434498}
   - component: {fileID: 703434497}
   - component: {fileID: 703434499}
+  - component: {fileID: 703434501}
+  - component: {fileID: 703434500}
   m_Layer: 5
   m_Name: 1block
   m_TagString: Untagged
@@ -1278,6 +1320,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 325.47345, y: 123.11669}
   m_EdgeRadius: 0
+--- !u!225 &703434500
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703434495}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &703434501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703434495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 0}
 --- !u!1 &724461458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,6 +1357,8 @@ GameObject:
   - component: {fileID: 724461461}
   - component: {fileID: 724461460}
   - component: {fileID: 724461462}
+  - component: {fileID: 724461464}
+  - component: {fileID: 724461463}
   m_Layer: 5
   m_Name: 3block
   m_TagString: Untagged
@@ -1400,6 +1469,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 473.55475, y: 147.39233}
   m_EdgeRadius: 0
+--- !u!225 &724461463
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724461458}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &724461464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724461458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 0}
 --- !u!1 &772891937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2425,7 @@ GameObject:
   - component: {fileID: 1501600839}
   - component: {fileID: 1501600841}
   - component: {fileID: 1501600842}
+  - component: {fileID: 1501600843}
   m_Layer: 5
   m_Name: 0block
   m_TagString: Untagged
@@ -2453,6 +2548,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 250.219, y: 118.26155}
   m_EdgeRadius: 0
+--- !u!114 &1501600843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501600837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 0}
 --- !u!1 &1818494090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,6 +2573,8 @@ GameObject:
   - component: {fileID: 1818494093}
   - component: {fileID: 1818494092}
   - component: {fileID: 1818494094}
+  - component: {fileID: 1818494096}
+  - component: {fileID: 1818494095}
   m_Layer: 5
   m_Name: 4block
   m_TagString: Untagged
@@ -2575,6 +2685,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 590.0778, y: 166.8128}
   m_EdgeRadius: 0
+--- !u!225 &1818494095
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818494090}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1818494096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818494090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 0}
 --- !u!1 &1909902183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,6 +3076,7 @@ GameObject:
   - component: {fileID: 2117182796}
   - component: {fileID: 2117182794}
   - component: {fileID: 2117182791}
+  - component: {fileID: 2117182797}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -2973,7 +3109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a805cf77ad8f14997876bb8f600053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundsSource: {fileID: 0}
+  boundsSource: {fileID: 1256692600}
   screenPoint: {x: 0, y: 0, z: 0}
   offset: {x: 0, y: 0, z: 0}
   worldBounds:
@@ -2983,7 +3119,7 @@ MonoBehaviour:
     width: 20
     height: 10
   reductionFactor: 0.02
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 1450821283}
 --- !u!4 &2117182796
 Transform:
   m_ObjectHideFlags: 0
@@ -2999,6 +3135,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117182797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117182790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3998094f6037354d994e4b3d053a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBoundariesScript: {fileID: 2117182794}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
