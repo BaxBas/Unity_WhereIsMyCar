@@ -10,6 +10,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
     public float returnDuration = 0.2f;
     [HideInInspector] public bool droppedOnPole; // priekð staba skripta OnDrop
+    [HideInInspector] public PoleScript currentPole;
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
@@ -35,8 +36,8 @@ public class BlockDragAndDropScript : MonoBehaviour,
             screenBoundariesScript = Object.FindFirstObjectByType<ScreenBoundariesScript>();
     }
 
-    // pârvçrs recttranform taisnstûrî, lai strâdâtu uz jebkura ekrâna izmçra
-    Rect GetWorldRect()
+    // pârvçrð recttranform taisnstûrî, lai strâdâtu uz jebkura ekrâna izmçra
+    public Rect GetWorldRect()
     {
         rectTransform.GetWorldCorners(corners);
         return new Rect(corners[0].x, corners[0].y,
@@ -134,10 +135,16 @@ public class BlockDragAndDropScript : MonoBehaviour,
         if (pole != null)
             pole.OnBlockDropped(this);
         else
-            StartCoroutine(ReturnToStart());
+            MoveTo(startPosition, true);
     }
 
-    IEnumerator ReturnToStart()
+    public void MoveTo(Vector3 target, bool restoreSibling = false)
+    {
+        StopAllCoroutines();
+        StartCoroutine(MoveRoutine(target, restoreSibling));
+    }
+
+    IEnumerator MoveRoutine(Vector3 target, bool restoreSibling)
     {
         Vector3 from = transform.position;
         float t = 0f;
@@ -145,11 +152,12 @@ public class BlockDragAndDropScript : MonoBehaviour,
         while (t < returnDuration)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(from, startPosition, t / returnDuration);
+            transform.position = Vector3.Lerp(from, target, t / returnDuration);
             yield return null;
         }
 
-        transform.position = startPosition;
-        transform.SetSiblingIndex(startSiblingIndex);
+        transform.position = target;
+        if (restoreSibling)
+            transform.SetSiblingIndex(startSiblingIndex);
     }
 }
