@@ -24,7 +24,10 @@ public class BlockDragAndDropScript : MonoBehaviour,
     [Tooltip("Fraction of the block that must overlap a pole to count as dropped on it")]
     public float minOverlap = 0.15f;
 
-    private readonly Vector3[] corners = new Vector3[4];
+    [Header("Shake")]
+    public float shakeDuration = 0.3f;
+    public float shakeStrength = 5f;
+    public float shakeSpeed = 40f;
 
     void Awake()
     {
@@ -75,7 +78,11 @@ public class BlockDragAndDropScript : MonoBehaviour,
     public void OnBeginDrag(PointerEventData eventData)
     {
         dragAllowed = IsTopOfStack();
-        if (!dragAllowed) return;
+        if (!dragAllowed)
+        {
+            Shake();
+            return;
+        }
         StopAllCoroutines(); // atceï atgrieðanâs animâciju, ja tâda ðobrîd notiek
 
         startPosition = transform.position;
@@ -156,5 +163,34 @@ public class BlockDragAndDropScript : MonoBehaviour,
         transform.position = target;
         if (restoreSibling)
             transform.SetSiblingIndex(startSiblingIndex);
+    }
+    public void Shake()
+    {
+        if (isShaking) return;   // lai nesakrâtos shake animâcijas (ja vairâkas reizes pçc kârtas mçìina pavilkt bloku)
+        StartCoroutine(ShakeRoutine());
+    }
+
+    private bool isShaking;
+
+    IEnumerator ShakeRoutine()
+    {
+        isShaking = true;
+        Vector3 origin = transform.position;
+        float t = 0f;
+
+        while (t < shakeDuration)
+        {
+            t += Time.deltaTime;
+
+            // ar laiku shake normistas jeb fadeout
+            float fade = 1f - (t / shakeDuration); // lçnâm pâriet no 1 uz 0, lai radîtu fade efektu
+            float offset = Mathf.Sin(t * shakeSpeed) * shakeStrength * fade; // mainâs starp -1 un 1, lai bloks kustçtots pa labi un kreisi
+
+            transform.position = origin + new Vector3(offset, 0f, 0f);
+            yield return null;
+        }
+
+        transform.position = origin;
+        isShaking = false;
     }
 }
