@@ -20,6 +20,18 @@ public class PoleScript : MonoBehaviour
         return HanoiRectUtils.GetWorldRect(rectTransform);
     }
 
+    public bool CanAccept(BlockDragAndDropScript block)
+    {
+        // nodroppot bloku uz to sâkotnçjo stabu vienmçr ir ok
+        if (block.currentPole == this) return true;
+
+        // tukðs stabs akceptç jebkuru bloku
+        if (stack.Count == 0) return true;
+
+        // ja iepriekðçjie if nenostrâdâm, tad akceptç, ja bloks ir mazâks par ðî brîþa augðçjo bloku
+        return block.size < TopBlock.size;
+    }
+
     public void OnBlockDropped(BlockDragAndDropScript block)
     {
         PlaceBlock(block, false);

@@ -19,6 +19,8 @@ public class BlockDragAndDropScript : MonoBehaviour,
     private Vector3 dragOffset;
     private Vector3 startPosition;
     private int startSiblingIndex;
+    [HideInInspector]
+    public int size;
 
     [Range(0f, 1f)]
     [Tooltip("Fraction of the block that must overlap a pole to count as dropped on it")]
@@ -134,12 +136,13 @@ public class BlockDragAndDropScript : MonoBehaviour,
         canvasGroup.blocksRaycasts = true;
 
         PoleScript pole = FindOverlappingPole();
-        droppedOnPole = pole != null;
+        bool accepted = pole != null && pole.CanAccept(this);
+        droppedOnPole = accepted;
 
-        if (pole != null)
+        if (accepted)
             pole.OnBlockDropped(this);
         else
-            MoveTo(startPosition, true);
+            MoveTo(startPosition, true); // aiziet atpakaï uz sâkotnçjo stabu
     }
 
     public void MoveTo(Vector3 target, bool restoreSibling = false)

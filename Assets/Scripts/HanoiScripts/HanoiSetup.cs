@@ -20,10 +20,12 @@ public class HanoiSetup : MonoBehaviour
         foreach (PoleScript pole in PoleScript.All)
             pole.stack.Clear();
 
-        foreach (BlockDragAndDropScript block in blocks)
+        // katram blokam pievieno bloka lielumu
+        for (int i = 0; i < blocks.Length; i++)
         {
-            block.currentPole = null;
-            startPole.PlaceBlock(block, true);
+            blocks[i].size = blocks.Length - i;
+            blocks[i].currentPole = null;
+            startPole.PlaceBlock(blocks[i], true);
         }
     }
 }
