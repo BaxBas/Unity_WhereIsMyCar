@@ -9,14 +9,11 @@ public class HanoiRewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
     string _adUnitId;
 
     [SerializeField] Button _rewardedAdButton;
-    //public FlyingObjectManager flyingObjectManager;
 
 
     void Awake()
     {
         _adUnitId = _androidAdUnitId;
-        //if (flyingObjectManager == null)
-        //    flyingObjectManager = FindFirstObjectByType<FlyingObjectManager>();
     }
 
     public void LoadAd()
@@ -83,7 +80,6 @@ public class HanoiRewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
              showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Rewarded ad completed!");
-            //flyingObjectManager.DestroyAllFlyingObjects();
             _rewardedAdButton.interactable = false;
             StartCoroutine(WaitAndLoadAd(10f));
         }

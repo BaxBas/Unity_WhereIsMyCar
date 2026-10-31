@@ -11,6 +11,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
     public float returnDuration = 0.2f;
     public bool droppedOnPole; // priekð staba skripta OnDrop
     public PoleScript currentPole;
+    private bool dragAllowed;
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
@@ -82,16 +83,23 @@ public class BlockDragAndDropScript : MonoBehaviour,
             parentRect, eventData.position, eventData.pressEventCamera, out world); // pârvçrs kursora pozîciju (pret kameras ekrânu) uz world space pozîciju
     }
 
+    bool IsTopOfStack()
+    {
+        return currentPole == null || currentPole.TopBlock == this;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        dragAllowed = IsTopOfStack();
+        if (!dragAllowed) return;
         StopAllCoroutines(); // atceï atgrieðanâs animâciju, ja tâda ðobrîd notiek
 
         startPosition = transform.position;
         startSiblingIndex = transform.GetSiblingIndex();
         droppedOnPole = false;
 
-        BlockObjectsScript.isDragging = true;
-        BlockObjectsScript.lastDragged = gameObject;
+        HanoiGameManager.isDragging = true;
+        HanoiGameManager.lastDragged = gameObject;
 
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false; // padara bloku "neredzamu" event sistemai, kas ïauj stabam zem bloka saòemt OnDrop
@@ -103,6 +111,8 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!dragAllowed) return;
+
         Vector3 pointerWorld;
         if (!PointerToWorld(eventData, out pointerWorld))
             return;
@@ -124,8 +134,10 @@ public class BlockDragAndDropScript : MonoBehaviour,
     // padara bloku atkal "normâlu" (ieslçdz atpakaï blocksraycasts, lai to varçtu atkal paòemt utt.)
     public void OnEndDrag(PointerEventData eventData)
     {
-        BlockObjectsScript.isDragging = false;
-        BlockObjectsScript.lastDragged = null;
+        if (!dragAllowed) return;
+
+        HanoiGameManager.isDragging = false;
+        HanoiGameManager.lastDragged = null;
 
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;

@@ -8,6 +8,7 @@ public class PoleScript : MonoBehaviour
 
     // bloki, kuri ir uz staba no lejas uz augðu
     public List<BlockDragAndDropScript> stack = new List<BlockDragAndDropScript>();
+    public BlockDragAndDropScript TopBlock => stack.Count > 0 ? stack[stack.Count - 1] : null;
 
     private RectTransform rectTransform;
     private readonly Vector3[] corners = new Vector3[4];
