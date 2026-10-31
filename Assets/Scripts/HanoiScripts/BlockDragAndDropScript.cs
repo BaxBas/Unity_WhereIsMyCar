@@ -8,7 +8,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
     [Tooltip("Optional. Leave empty to allow dragging anywhere.")]
     public ScreenBoundariesScript screenBoundariesScript;
 
-    public float returnDuration = 0.2f;
+    public float returnDuration = 0.1f;
     public bool droppedOnPole; // priekð staba skripta OnDrop
     public PoleScript currentPole;
     private bool dragAllowed;

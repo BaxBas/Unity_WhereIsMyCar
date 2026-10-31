@@ -587,8 +587,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &147423012
 GameObject:
@@ -961,8 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &544435894
 GameObject:
@@ -1443,8 +1443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &724461458
 GameObject:
@@ -1596,8 +1596,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &772891937
 GameObject:
@@ -2721,8 +2721,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &1818494090
 GameObject:
@@ -2874,8 +2874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 1
-  currentPole: {fileID: 2104082442}
+  droppedOnPole: 0
+  currentPole: {fileID: 0}
   minOverlap: 0.1
 --- !u!1 &1909902183
 GameObject:
@@ -3309,13 +3309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8065c598096274d9db8aebc9dd90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stack:
-  - {fileID: 141145430}
-  - {fileID: 1818494096}
-  - {fileID: 724461464}
-  - {fileID: 418702112}
-  - {fileID: 703434501}
-  - {fileID: 1501600843}
+  stack: []
 --- !u!1 &2117182790
 GameObject:
   m_ObjectHideFlags: 0
@@ -3327,6 +3321,7 @@ GameObject:
   - component: {fileID: 2117182796}
   - component: {fileID: 2117182794}
   - component: {fileID: 2117182791}
+  - component: {fileID: 2117182797}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -3385,6 +3380,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117182797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117182790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5dd5a90f5f1e846a1d4174ba74a1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPole: {fileID: 2104082442}
+  blocks:
+  - {fileID: 141145430}
+  - {fileID: 1818494096}
+  - {fileID: 724461464}
+  - {fileID: 418702112}
+  - {fileID: 703434501}
+  - {fileID: 1501600843}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
