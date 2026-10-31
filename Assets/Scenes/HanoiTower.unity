@@ -587,7 +587,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &147423012
 GameObject:
@@ -960,7 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &544435894
 GameObject:
@@ -1441,7 +1443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &724461458
 GameObject:
@@ -1593,7 +1596,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &772891937
 GameObject:
@@ -2428,6 +2432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8065c598096274d9db8aebc9dd90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stack: []
 --- !u!1 &1450821281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,7 +2721,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &1818494090
 GameObject:
@@ -2868,7 +2874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenBoundariesScript: {fileID: 2117182794}
   returnDuration: 0.2
-  droppedOnPole: 0
+  droppedOnPole: 1
+  currentPole: {fileID: 2104082442}
   minOverlap: 0.1
 --- !u!1 &1909902183
 GameObject:
@@ -3005,6 +3012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8065c598096274d9db8aebc9dd90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stack: []
 --- !u!1 &1964924728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3309,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8065c598096274d9db8aebc9dd90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stack:
+  - {fileID: 141145430}
+  - {fileID: 1818494096}
+  - {fileID: 724461464}
+  - {fileID: 418702112}
+  - {fileID: 703434501}
+  - {fileID: 1501600843}
 --- !u!1 &2117182790
 GameObject:
   m_ObjectHideFlags: 0

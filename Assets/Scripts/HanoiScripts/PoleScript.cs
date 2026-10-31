@@ -7,7 +7,7 @@ public class PoleScript : MonoBehaviour
     public static readonly List<PoleScript> All = new List<PoleScript>();
 
     // bloki, kuri ir uz staba no lejas uz augðu
-    public readonly List<BlockDragAndDropScript> stack = new List<BlockDragAndDropScript>();
+    public List<BlockDragAndDropScript> stack = new List<BlockDragAndDropScript>();
 
     private RectTransform rectTransform;
     private readonly Vector3[] corners = new Vector3[4];

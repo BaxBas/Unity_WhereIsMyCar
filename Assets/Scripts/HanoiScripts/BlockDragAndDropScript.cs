@@ -9,8 +9,8 @@ public class BlockDragAndDropScript : MonoBehaviour,
     public ScreenBoundariesScript screenBoundariesScript;
 
     public float returnDuration = 0.2f;
-    [HideInInspector] public bool droppedOnPole; // priekð staba skripta OnDrop
-    [HideInInspector] public PoleScript currentPole;
+    public bool droppedOnPole; // priekð staba skripta OnDrop
+    public PoleScript currentPole;
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
@@ -27,6 +27,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        startPosition = transform.position;
 
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
