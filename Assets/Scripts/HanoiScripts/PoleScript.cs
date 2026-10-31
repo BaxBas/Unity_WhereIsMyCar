@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
 public class PoleScript : MonoBehaviour
@@ -19,13 +18,15 @@ public class PoleScript : MonoBehaviour
 
     public Rect GetWorldRect()
     {
-        rectTransform.GetWorldCorners(corners);   // 0 = bottom-left, 2 = top-right
-        return new Rect(corners[0].x, corners[0].y,
-                        corners[2].x - corners[0].x,
-                        corners[2].y - corners[0].y);
+        return HanoiRectUtils.GetWorldRect(rectTransform);
     }
 
     public void OnBlockDropped(BlockDragAndDropScript block)
+    {
+        PlaceBlock(block, false);
+    }
+
+    public void PlaceBlock(BlockDragAndDropScript block, bool instant)
     {
         // izòem bloku no iepriekðçjâ staba saraksta
         if (block.currentPole != null)
@@ -33,13 +34,13 @@ public class PoleScript : MonoBehaviour
         stack.Remove(block);
 
         // aprçíina toròa augstumu = staba apakða + esoðo bloku augstumi
-        Rect poleRect = GetWorldRect();
+        Rect poleRect = HanoiRectUtils.GetWorldRect(rectTransform);
         float stackTop = poleRect.yMin;
         foreach (BlockDragAndDropScript b in stack)
-            stackTop += b.GetWorldRect().height;
+            stackTop += HanoiRectUtils.GetWorldRect(b.Rect).height;
 
         // Move by the difference, so it works with any pivot
-        Rect blockRect = block.GetWorldRect();
+        Rect blockRect = HanoiRectUtils.GetWorldRect(block.Rect);
         Vector3 target = block.transform.position + new Vector3(
             poleRect.center.x - blockRect.center.x,   // stâv staba centrâ
             stackTop - blockRect.yMin,                // apakða virs toròa paðas augðas (apakðçjâ bloka vai staba apakðas)
@@ -47,6 +48,13 @@ public class PoleScript : MonoBehaviour
 
         stack.Add(block);
         block.currentPole = this;
-        block.MoveTo(target);
+
+        if (instant)
+        {
+            block.transform.position = target;
+            block.droppedOnPole = true;
+        }
+        else
+            block.MoveTo(target);
     }
 }

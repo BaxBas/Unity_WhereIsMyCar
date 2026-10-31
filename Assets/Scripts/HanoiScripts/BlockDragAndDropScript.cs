@@ -15,6 +15,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+    public RectTransform Rect => rectTransform;
     private Vector3 dragOffset;
     private Vector3 startPosition;
     private int startSiblingIndex;
@@ -38,27 +39,10 @@ public class BlockDragAndDropScript : MonoBehaviour,
             screenBoundariesScript = Object.FindFirstObjectByType<ScreenBoundariesScript>();
     }
 
-    // pârvçrð recttranform taisnstûrî, lai strâdâtu uz jebkura ekrâna izmçra
-    public Rect GetWorldRect()
-    {
-        rectTransform.GetWorldCorners(corners);
-        return new Rect(corners[0].x, corners[0].y,
-                        corners[2].x - corners[0].x,
-                        corners[2].y - corners[0].y);
-    }
-
-    // aprçíina bloka un staba pârklâðanâs zonu
-    static float OverlapArea(Rect a, Rect b)
-    {
-        float w = Mathf.Min(a.xMax, b.xMax) - Mathf.Max(a.xMin, b.xMin);
-        float h = Mathf.Min(a.yMax, b.yMax) - Mathf.Max(a.yMin, b.yMin);
-        return (w > 0f && h > 0f) ? w * h : 0f;
-    }
-
     // atrod to stabu, kuru pârklâj visvairâk (vajadzîgs situâcijâs, kad bloks pârklâj 2 stabus)
     PoleScript FindOverlappingPole()
     {
-        Rect blockRect = GetWorldRect();
+        Rect blockRect = HanoiRectUtils.GetWorldRect(rectTransform);
         float blockArea = blockRect.width * blockRect.height;
 
         PoleScript best = null;
@@ -66,7 +50,7 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
         foreach (PoleScript pole in PoleScript.All)
         {
-            float area = OverlapArea(blockRect, pole.GetWorldRect());
+            float area = HanoiRectUtils.OverlapArea(blockRect, pole.GetWorldRect());
             if (area > bestArea && area >= blockArea * minOverlap)
             {
                 bestArea = area;
