@@ -7,6 +7,7 @@ public class HanoiSetup : MonoBehaviour
 
     [Tooltip("Visi bloki sâkot ar lielâko uz mazâko")]
     public BlockDragAndDropScript[] blocks;
+    public float adTimeReduction = 60f;
 
     public static HanoiSetup Instance { get; private set; }
     public PoleScript goalPole;
@@ -17,8 +18,16 @@ public class HanoiSetup : MonoBehaviour
     public Text finalTimeText;
     public GameObject winPanel;
 
+    [Header("Star rating")]
+    public float threeStarTime = 180f; // sekundçs (3 min un mazâk ir 3 zvaigznes)
+    public float twoStarTime = 480f; // 8min un <
+
+    [Tooltip("Indeks 0 = 1 star, 1 = 2 stars, 2 = 3 stars")]
+    public Sprite[] winPanels;
+    public Image panelImage;
+
     private float elapsed;
-    private bool timerRunning;
+    public static bool timerRunning = false;
 
     void Awake()
     {
@@ -34,7 +43,7 @@ public class HanoiSetup : MonoBehaviour
     {
         if (!timerRunning) return;
 
-        elapsed += Time.unscaledDeltaTime;
+        elapsed += Time.deltaTime;
         if (timerText != null)
             timerText.text = FormatTime(elapsed);
     }
@@ -56,7 +65,6 @@ public class HanoiSetup : MonoBehaviour
         }
 
         elapsed = 0f;
-        timerRunning = true;
         gameWon = false;
         if (winPanel != null) winPanel.SetActive(false);
         if (timerText != null) timerText.text = FormatTime(0f);
@@ -69,19 +77,37 @@ public class HanoiSetup : MonoBehaviour
         if (goalPole.stack.Count == blocks.Length)
         {
             gameWon = true;
-            timerRunning = false;   // freezes the time
+            timerRunning = false;
 
             string finalTime = FormatTime(elapsed);
             if (timerText != null) timerText.text = finalTime;
-            if (finalTimeText != null) finalTimeText.text = "Time: " + finalTime;
+            if (finalTimeText != null) finalTimeText.text = finalTime;
+
+            int stars = GetStars(elapsed);
+            if (panelImage != null && winPanels != null && winPanels.Length >= stars)
+                panelImage.sprite = winPanels[stars - 1];
+
             if (winPanel != null) winPanel.SetActive(true);
 
             Debug.Log("YOU WIN! Time: " + finalTime);
         }
     }
+    int GetStars(float seconds)
+    {
+        if (seconds <= threeStarTime) return 3;
+        if (seconds <= twoStarTime) return 2;
+        return 1;
+    }
 
     static string FormatTime(float seconds)
     {
         return System.TimeSpan.FromSeconds(seconds).ToString("hh\\:mm\\:ss\\.ff");
+    }
+    public void ReduceTime(float seconds)
+    {
+        if (gameWon) return;
+        elapsed = Mathf.Max(0f, elapsed - seconds); // nekad neaiziet zem 0 sekundçm
+        if (timerText != null)
+            timerText.text = FormatTime(elapsed);
     }
 }

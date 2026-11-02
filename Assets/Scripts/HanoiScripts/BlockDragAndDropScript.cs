@@ -88,6 +88,8 @@ public class BlockDragAndDropScript : MonoBehaviour,
             Shake();
             return;
         }
+
+        HanoiSetup.timerRunning = true;
         StopAllCoroutines(); // atceï atgrieðanâs animâciju, ja tâda ðobrîd notiek
 
         startPosition = transform.position;

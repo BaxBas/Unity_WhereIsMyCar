@@ -80,6 +80,10 @@ public class HanoiRewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
              showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("Rewarded ad completed!");
+
+            if (HanoiSetup.Instance != null)
+                HanoiSetup.Instance.ReduceTime(HanoiSetup.Instance.adTimeReduction);
+
             _rewardedAdButton.interactable = false;
             StartCoroutine(WaitAndLoadAd(10f));
         }
