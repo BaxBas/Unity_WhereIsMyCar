@@ -35,6 +35,7 @@ public class PoleScript : MonoBehaviour
     public void OnBlockDropped(BlockDragAndDropScript block)
     {
         PlaceBlock(block, false);
+        HanoiSetup.Instance.CheckWin();
     }
 
     public void PlaceBlock(BlockDragAndDropScript block, bool instant)

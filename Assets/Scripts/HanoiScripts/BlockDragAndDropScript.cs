@@ -79,6 +79,9 @@ public class BlockDragAndDropScript : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        dragAllowed = false;
+        if (HanoiSetup.gameWon) return;
+
         dragAllowed = IsTopOfStack();
         if (!dragAllowed)
         {

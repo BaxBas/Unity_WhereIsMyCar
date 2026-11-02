@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HanoiSetup : MonoBehaviour
 {
@@ -7,9 +8,35 @@ public class HanoiSetup : MonoBehaviour
     [Tooltip("Visi bloki sâkot ar lielâko uz mazâko")]
     public BlockDragAndDropScript[] blocks;
 
+    public static HanoiSetup Instance { get; private set; }
+    public PoleScript goalPole;
+    public static bool gameWon;
+
+    [Header("UI")]
+    public Text timerText;
+    public Text finalTimeText;
+    public GameObject winPanel;
+
+    private float elapsed;
+    private bool timerRunning;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         SetupGame();
+    }
+
+    void Update()
+    {
+        if (!timerRunning) return;
+
+        elapsed += Time.unscaledDeltaTime;
+        if (timerText != null)
+            timerText.text = FormatTime(elapsed);
     }
 
     // publisks, lai varçtu izveidot restartçðanas pogu vçlâk
@@ -27,5 +54,34 @@ public class HanoiSetup : MonoBehaviour
             blocks[i].currentPole = null;
             startPole.PlaceBlock(blocks[i], true);
         }
+
+        elapsed = 0f;
+        timerRunning = true;
+        gameWon = false;
+        if (winPanel != null) winPanel.SetActive(false);
+        if (timerText != null) timerText.text = FormatTime(0f);
+    }
+
+    public void CheckWin()
+    {
+        if (gameWon) return;
+
+        if (goalPole.stack.Count == blocks.Length)
+        {
+            gameWon = true;
+            timerRunning = false;   // freezes the time
+
+            string finalTime = FormatTime(elapsed);
+            if (timerText != null) timerText.text = finalTime;
+            if (finalTimeText != null) finalTimeText.text = "Time: " + finalTime;
+            if (winPanel != null) winPanel.SetActive(true);
+
+            Debug.Log("YOU WIN! Time: " + finalTime);
+        }
+    }
+
+    static string FormatTime(float seconds)
+    {
+        return System.TimeSpan.FromSeconds(seconds).ToString("hh\\:mm\\:ss\\.ff");
     }
 }
