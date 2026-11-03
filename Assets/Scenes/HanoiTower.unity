@@ -1975,7 +1975,7 @@ MonoBehaviour:
   adsInitializer: {fileID: 1035960179}
   interstitialAd: {fileID: 1035960178}
   turnOffInterstitialAds: 0
-  rewardedAds: {fileID: 0}
+  rewardedAds: {fileID: 1035960182}
   turnOffRewardedAds: 0
   bannerAd: {fileID: 1035960176}
   turnOffBannerAds: 0
@@ -3511,6 +3511,7 @@ MonoBehaviour:
   - {fileID: 418702112}
   - {fileID: 703434501}
   - {fileID: 1501600843}
+  adTimeReduction: 60
   goalPole: {fileID: 1302669715}
   timerText: {fileID: 1131588447}
   finalTimeText: {fileID: 73404555}

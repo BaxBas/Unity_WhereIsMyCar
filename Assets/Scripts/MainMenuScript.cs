@@ -6,19 +6,27 @@ using System.Collections;
 public class MainMenuScript : MonoBehaviour
 {
     public Button startButton;
+    public Button hanoiButton;
     public Animator fadeAnim;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         startButton.Select();
+        hanoiButton.Select();
     }
 
-    public void FadeOut()
+    public void FadeOutCity()
     {
         fadeAnim.SetBool("AlphaFade", true);
 
-        StartCoroutine(WaitForFade());
+        StartCoroutine(WaitForFadeCity());
+    }
+
+    public void FadeOutHanoi()
+    {
+        fadeAnim.SetBool("AlphaFade", true);
+
+        StartCoroutine(WaitForFadeHanoi());
     }
 
     public void ExitGame()
@@ -32,10 +40,17 @@ public class MainMenuScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private IEnumerator WaitForFade()
+    private IEnumerator WaitForFadeCity()
     {
         yield return new WaitForSeconds(1f);
 
         LoadScene("CityScene");
+    }
+
+    private IEnumerator WaitForFadeHanoi()
+    {
+        yield return new WaitForSeconds(1f);
+
+        LoadScene("HanoiTower");
     }
 }
