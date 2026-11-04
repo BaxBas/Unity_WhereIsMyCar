@@ -56,6 +56,7 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
             if (AdManager.Instance != null && AdManager.Instance.bannerAd != null && AdManager.Instance.bannerAd.isBannerVisible)
                 AdManager.Instance.bannerAd.HideBannerAd();
 
+            BannerAd.fullscreenAdActive = true;
             Advertisement.Show(_adUnitId, this);
             isReady = false;
         
@@ -114,6 +115,10 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
             Time.timeScale = 1f;
             LoadAd();
         }
+
+        BannerAd.fullscreenAdActive = false;
+        if (AdManager.Instance != null && AdManager.Instance.bannerAd != null)
+            AdManager.Instance.bannerAd.ShowIfHidden();
     }
 
     private IEnumerator SlowDownTimeTemporarily(float duration)
@@ -128,6 +133,9 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
        Debug.LogError($"Failed to show interstitial ad: {error.ToString()} - {message}");
+        BannerAd.fullscreenAdActive = false;
+        if (AdManager.Instance != null && AdManager.Instance.bannerAd != null)
+            AdManager.Instance.bannerAd.ShowIfHidden();
         LoadAd();
     }
 

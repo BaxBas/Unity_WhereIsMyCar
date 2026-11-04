@@ -9,7 +9,8 @@ public class AdManager : MonoBehaviour
     [SerializeField] bool turnOffInterstitialAds = false;
     private bool firstAdShown = false;
 
-    public HanoiRewardedAds rewardedAds;
+    public RewardedAds rewardedAds; // city scene
+    public HanoiRewardedAds hanoiRewardedAds; // hanoi scene
     [SerializeField] bool turnOffRewardedAds = false;
 
     public BannerAd bannerAd;
@@ -52,9 +53,10 @@ public class AdManager : MonoBehaviour
             interstitialAd.LoadAd();
         }
 
-        if (rewardedAds != null && !turnOffRewardedAds)
+        if (!turnOffRewardedAds)
         {
-            rewardedAds.LoadAd();
+            if (rewardedAds != null) rewardedAds.LoadAd();
+            if (hanoiRewardedAds != null) hanoiRewardedAds.LoadAd();
         }
 
         if (bannerAd != null && !turnOffBannerAds)
@@ -92,7 +94,6 @@ public class AdManager : MonoBehaviour
         if (interstitialAd == null)
             interstitialAd = FindFirstObjectByType<InterstitialAd>();
 
-        // Safeguard against missing tags
         GameObject interButtonObj = GameObject.FindWithTag("InterstitialAdButton");
         if (interButtonObj != null && interstitialAd != null)
         {
@@ -102,17 +103,22 @@ public class AdManager : MonoBehaviour
         }
 
         if (rewardedAds == null)
-            rewardedAds = FindFirstObjectByType<HanoiRewardedAds>();
+            rewardedAds = FindFirstObjectByType<RewardedAds>();
+
+        if (hanoiRewardedAds == null)
+            hanoiRewardedAds = FindFirstObjectByType<HanoiRewardedAds>();
 
         GameObject rewardButtonObj = GameObject.FindWithTag("RewardedAdButton");
-        if (rewardButtonObj != null && rewardedAds != null)
+        if (rewardButtonObj != null)
         {
             Button rewardedAdButton = rewardButtonObj.GetComponent<Button>();
             if (rewardedAdButton != null)
-                rewardedAds.SetButton(rewardedAdButton);
+            {
+                if (rewardedAds != null) rewardedAds.SetButton(rewardedAdButton);
+                if (hanoiRewardedAds != null) hanoiRewardedAds.SetButton(rewardedAdButton);
+            }
         }
 
-        // (Do the same safeguard for the banner button below)
         GameObject bannerButtonObj = GameObject.FindWithTag("BannerAdButton");
         if (bannerButtonObj != null && bannerAd != null)
         {

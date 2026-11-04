@@ -7,9 +7,11 @@ public class BannerAd : MonoBehaviour
     [SerializeField] string _AndroidAdUnitId = "Banner_Android";
     string _adUnitId;
 
+    public static bool fullscreenAdActive;
+
     [SerializeField] Button _bannerButton;
     public bool isBannerVisible = false;
-
+    [SerializeField] bool showOnLoad = true;
     [SerializeField] BannerPosition bannerPosition = BannerPosition.BOTTOM_CENTER;
 
     void Awake()
@@ -40,12 +42,15 @@ public class BannerAd : MonoBehaviour
         Debug.Log("Banner ad loaded!");
         if (_bannerButton != null)
             _bannerButton.interactable = true;
+
+        if (showOnLoad && !isBannerVisible && !fullscreenAdActive)
+            ShowIfHidden();
     }
 
     void OnBannerError(string message)
     {
         Debug.Log($"Banner error: {message}");
-        LoadBanner();
+        Invoke(nameof(LoadBanner), 10f); // mçìina vçlreiz pçc 10 sek
     }
 
     public void ShowBannerAd()
@@ -63,6 +68,19 @@ public class BannerAd : MonoBehaviour
             };
             Advertisement.Banner.Show(_adUnitId, bannerOptions);
         }
+    }
+
+    public void ShowIfHidden()
+    {
+        if (isBannerVisible) return;
+
+        BannerOptions bannerOptions = new BannerOptions
+        {
+            clickCallback = OnBannerClicked,
+            hideCallback = OnBannerHidden,
+            showCallback = OnBannerShown
+        };
+        Advertisement.Banner.Show(_adUnitId, bannerOptions);
     }
 
     void OnBannerClicked()

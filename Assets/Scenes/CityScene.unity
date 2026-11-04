@@ -5659,7 +5659,7 @@ MonoBehaviour:
   adsInitializer: {fileID: 1881937514}
   interstitialAd: {fileID: 1881937516}
   turnOffInterstitialAds: 0
-  rewardedAds: {fileID: 1881937520}
+  rewardedAds: {fileID: 0}
   turnOffRewardedAds: 0
   bannerAd: {fileID: 1881937519}
   turnOffBannerAds: 0
@@ -5689,7 +5689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AndroidAdUnitId: BP_Rewarded_Android
   _bannerButton: {fileID: 697681655}
-  isBannerVisible: 1
+  isBannerVisible: 0
   bannerPosition: 4
 --- !u!114 &1881937520
 MonoBehaviour:
