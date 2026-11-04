@@ -27,7 +27,10 @@ public class AdManager : MonoBehaviour
             adsInitializer = FindFirstObjectByType<AdsInitializer>();
         }
 
-        if(Instance != null && Instance != this)
+        if (bannerAd == null)
+            bannerAd = FindFirstObjectByType<BannerAd>();
+
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;

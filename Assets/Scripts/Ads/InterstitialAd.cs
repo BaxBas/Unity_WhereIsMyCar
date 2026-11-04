@@ -53,7 +53,7 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     {
         if(isReady)
         {
-            if(AdManager.Instance.bannerAd.isBannerVisible)
+            if (AdManager.Instance != null && AdManager.Instance.bannerAd != null && AdManager.Instance.bannerAd.isBannerVisible)
                 AdManager.Instance.bannerAd.HideBannerAd();
 
             Advertisement.Show(_adUnitId, this);
@@ -82,7 +82,8 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     public void OnUnityAdsAdLoaded(string placementId)
     {
         Debug.Log("Interstitial ad loaded successfully!");
-        _interstitialAdButton.interactable = true;
+        if (_interstitialAdButton != null)
+            _interstitialAdButton.interactable = true;
         isReady = true;
         OnInterstitialAdReady?.Invoke();
     }
