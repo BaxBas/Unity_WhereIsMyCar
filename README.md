@@ -19,10 +19,10 @@ Spēles galvenais mērķis ir aizvilkt un pareizi ievietot katru mašīnu viņas
 **←** - saspiest mašīnu
 
 # Hanojas tornis
-Spēles galvenais mērķis ir pārlikt torni (no lielākā uz mazāko bloku) uz pašu pēdējo stabiņu.
+Spēles galvenais mērķis ir pārlikt torni (no lielākā uz mazāko bloku) uz pašu pēdējo stabiņu. <br>
 <img width="864" height="409" alt="image" src="https://github.com/user-attachments/assets/43024b81-36cb-402a-a1cb-a923f0f61e62" />
 
-Pārvietot var tikai to bloku, kas ir staba pašā augšā, un bloku var nolikt virsū tikai tukšam stabam vai arī uz lielāku bloku.
+Pārvietot var tikai to bloku, kas ir staba pašā augšā, un bloku var nolikt virsū tikai tukšam stabam vai arī uz lielāku bloku. <br>
 <img width="433" height="321" alt="image" src="https://github.com/user-attachments/assets/9999fd80-7954-47d5-899e-4683a0ce3f60" />
 
 ## Zvaigžņu iegūšana
