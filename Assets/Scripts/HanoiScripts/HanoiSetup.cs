@@ -20,7 +20,7 @@ public class HanoiSetup : MonoBehaviour
 
     [Header("Star rating")]
     public float threeStarTime = 180f; // sekundçs (3 min un mazâk ir 3 zvaigznes)
-    public float twoStarTime = 480f; // 8min un <
+    public float twoStarTime = 300f; // 5min un <
 
     [Tooltip("Indeks 0 = 1 star, 1 = 2 stars, 2 = 3 stars")]
     public Sprite[] winPanels;
@@ -32,6 +32,13 @@ public class HanoiSetup : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        // priekð portreta skata
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.orientation = ScreenOrientation.AutoRotation;
     }
 
     void Start()
@@ -109,5 +116,10 @@ public class HanoiSetup : MonoBehaviour
         elapsed = Mathf.Max(0f, elapsed - seconds); // nekad neaiziet zem 0 sekundçm
         if (timerText != null)
             timerText.text = FormatTime(elapsed);
+    }
+
+    void OnDestroy()
+    {
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 }
