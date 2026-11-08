@@ -89,6 +89,9 @@ public class BlockDragAndDropScript : MonoBehaviour,
             return;
         }
 
+        if (screenBoundariesScript != null)
+            screenBoundariesScript.UpdateWorldBounds();
+
         HanoiSetup.timerRunning = true;
         StopAllCoroutines(); // atceï atgrieðanâs animâciju, ja tâda ðobrîd notiek
 
