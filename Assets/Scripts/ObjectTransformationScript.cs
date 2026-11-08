@@ -38,35 +38,21 @@ public class ObjectTransformationScript : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                if (GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y > 0.3f)
-                {
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale =
-                    new Vector3(GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x,
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y - 0.001f, 1f);
-                }
-            }
+            RectTransform rt = GameObjectsScript.lastDragged.GetComponent<RectTransform>();
+            Vector3 s = rt.localScale;
+            float signX = s.x < 0 ? -1f : 1f;
+            float absX = Mathf.Abs(s.x);
+            float y = s.y;
 
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                if (GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x > 0.3f)
-                {
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale =
-                    new Vector3(GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x - 0.001f,
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y, 1f);
-                }
-            }
+            if (Input.GetKey(KeyCode.LeftArrow)) absX -= 0.001f;
+            if (Input.GetKey(KeyCode.RightArrow)) absX += 0.001f;
+            if (Input.GetKey(KeyCode.DownArrow)) y -= 0.001f;
+            if (Input.GetKey(KeyCode.UpArrow)) y += 0.001f;
 
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x < 0.9f)
-                {
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale =
-                    new Vector3(GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.x + 0.001f,
-                    GameObjectsScript.lastDragged.GetComponent<RectTransform>().localScale.y, 1f);
-                }
-            }
+            absX = Mathf.Clamp(absX, 0.3f, 0.9f);
+            y = Mathf.Clamp(y, 0.3f, 0.9f);
+
+            rt.localScale = new Vector3(signX * absX, y, 1f);
 
             if (Input.GetKey(KeyCode.Space) && canFlip)
             {
