@@ -19,6 +19,7 @@ public class DragAndDropScript : MonoBehaviour,
         }
 
         rectTransform = GetComponent<RectTransform>();
+        anim = GetComponentInChildren<Animator>();
         gameObjectsScript = Object.FindFirstObjectByType<GameObjectsScript>();
         screenBoundariesScript = Object.FindFirstObjectByType<ScreenBoundariesScript>();
     }
@@ -85,10 +86,14 @@ public class DragAndDropScript : MonoBehaviour,
 
             if(gameObjectsScript.inRightPlace)
             {
-                GameObjectsScript.lastDragged.GetComponent<Rigidbody>().isKinematic = false;
-                anim.SetBool("placed", true);
+                var state = GetComponent<CarStateScript>();
+                if (state != null) state.isPlaced = true;
+
+                if (anim != null) anim.SetBool("placed", true);
+                //GameObjectsScript.lastDragged.GetComponent<Rigidbody>().isKinematic = false;
                 canvasGroup.blocksRaycasts = false;
                 GameObjectsScript.lastDragged = null;
+                gameObjectsScript.CheckWinCondition();
             }
 
             gameObjectsScript.inRightPlace = false;

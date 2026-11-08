@@ -24,18 +24,17 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 placeZRot = 
                     eventData.pointerDrag.GetComponent<RectTransform>().transform.eulerAngles.z;
                 carZRot = GetComponent<RectTransform>().transform.eulerAngles.z;
-                diffZRot = Mathf.Abs(placeZRot - carZRot);
+                diffZRot = Mathf.Abs(Mathf.DeltaAngle(placeZRot, carZRot));
                 Debug.Log("Diff Z Rot: " + diffZRot);
 
                 placeSize = eventData.pointerDrag.GetComponent<RectTransform>().localScale;
                 carSize = GetComponent<RectTransform>().localScale;
-                xSizeDiff = Mathf.Abs(placeSize.x - carSize.x);
-                ySizeDiff = Mathf.Abs(placeSize.y - carSize.y);
+                xSizeDiff = Mathf.Abs(Mathf.Abs(placeSize.x) - Mathf.Abs(carSize.x));
+                ySizeDiff = Mathf.Abs(Mathf.Abs(placeSize.y) - Mathf.Abs(carSize.y));
                 Debug.Log("Diff X Size: " + xSizeDiff);
                 Debug.Log("Diff Y Size: " + ySizeDiff);
 
-                if((diffZRot <= 7 || (diffZRot >= 353 && diffZRot <= 360)) &&
-                    (xSizeDiff <= 0.4f && ySizeDiff <= 0.4f))
+                if(diffZRot <= 7f && xSizeDiff <= 0.1f && ySizeDiff <= 0.1f)
                 {
                     Debug.Log("Car placed correctly!");
                     gameObjectsScript.inRightPlace = true;
