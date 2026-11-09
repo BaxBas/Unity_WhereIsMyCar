@@ -1,11 +1,11 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 
 public class HanoiSetup : MonoBehaviour
 {
     public PoleScript startPole;
 
-    [Tooltip("Visi bloki s‚kot ar liel‚ko uz maz‚ko")]
+    [Tooltip("Visi bloki s√¢kot ar liel√¢ko uz maz√¢ko")]
     public BlockDragAndDropScript[] blocks;
     public float adTimeReduction = 60f;
 
@@ -19,7 +19,7 @@ public class HanoiSetup : MonoBehaviour
     public GameObject winPanel;
 
     [Header("Star rating")]
-    public float threeStarTime = 180f; // sekundÁs (3 min un maz‚k ir 3 zvaigznes)
+    public float threeStarTime = 180f; // sekundƒìs (3 min un maz√¢k ir 3 zvaigznes)
     public float twoStarTime = 300f; // 5min un <
 
     [Tooltip("Indeks 0 = 1 star, 1 = 2 stars, 2 = 3 stars")]
@@ -32,17 +32,18 @@ public class HanoiSetup : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
-        // priek portreta skata
-        Screen.autorotateToPortrait = false;
-        Screen.autorotateToPortraitUpsideDown = false;
-        Screen.autorotateToLandscapeLeft = true;
-        Screen.autorotateToLandscapeRight = true;
-        Screen.orientation = ScreenOrientation.AutoRotation;
     }
 
     void Start()
     {
+        // priek≈° portreta skata
+        Screen.orientation = ScreenOrientation.AutoRotation;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        
+
         SetupGame();
     }
 
@@ -55,10 +56,10 @@ public class HanoiSetup : MonoBehaviour
             timerText.text = FormatTime(elapsed);
     }
 
-    // publisks, lai varÁtu izveidot restartÁanas pogu vÁl‚k
+    // publisks, lai var√ßtu izveidot restart√ß√∞anas pogu v√ßl√¢k
     public void SetupGame()
     {
-        Canvas.ForceUpdateCanvases(); // lai bloku izmÁri b˚tu lÓdz galam izveidoti
+        Canvas.ForceUpdateCanvases(); // lai bloku izm√ßri b√ªtu l√Ædz galam izveidoti
 
         foreach (PoleScript pole in PoleScript.All)
             pole.stack.Clear();
@@ -113,7 +114,7 @@ public class HanoiSetup : MonoBehaviour
     public void ReduceTime(float seconds)
     {
         if (gameWon) return;
-        elapsed = Mathf.Max(0f, elapsed - seconds); // nekad neaiziet zem 0 sekundÁm
+        elapsed = Mathf.Max(0f, elapsed - seconds); // nekad neaiziet zem 0 sekund√ßm
         if (timerText != null)
             timerText.text = FormatTime(elapsed);
     }
