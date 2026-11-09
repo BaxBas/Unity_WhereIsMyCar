@@ -19,7 +19,7 @@ public class AdManager : MonoBehaviour
     public static AdManager Instance { get; private set; }
 
     private bool firstSceneLoaded = false;
-
+    string sceneName;
 
     private void Awake()
     {
@@ -108,14 +108,18 @@ public class AdManager : MonoBehaviour
         if (hanoiRewardedAds == null)
             hanoiRewardedAds = FindFirstObjectByType<HanoiRewardedAds>();
 
-        GameObject rewardButtonObj = GameObject.FindWithTag("RewardedAdButton");
+        sceneName = scene.name;
+
+        string rewardTag = (sceneName == "CityScene") ? "RewardedAdButton" : "HanoiRewardedAdButton";
+
+        GameObject rewardButtonObj = GameObject.FindWithTag(rewardTag);
         if (rewardButtonObj != null)
         {
             Button rewardedAdButton = rewardButtonObj.GetComponent<Button>();
             if (rewardedAdButton != null)
             {
-                if (rewardedAds != null) rewardedAds.SetButton(rewardedAdButton);
-                if (hanoiRewardedAds != null) hanoiRewardedAds.SetButton(rewardedAdButton);
+                if (rewardTag == "RewardedAdButton") rewardedAds.SetButton(rewardedAdButton);
+                if (rewardTag == "HanoiRewardedAdButton") hanoiRewardedAds.SetButton(rewardedAdButton);
             }
         }
 

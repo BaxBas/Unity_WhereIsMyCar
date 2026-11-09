@@ -121,6 +121,7 @@ public class HanoiSetup : MonoBehaviour
 
     void OnDestroy()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
+        Screen.autorotateToPortrait = true;
+        Screen.autorotateToPortraitUpsideDown = true;
     }
 }

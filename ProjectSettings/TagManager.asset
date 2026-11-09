@@ -20,6 +20,7 @@ TagManager:
   - RewardedAdButton
   - InterstitialAdButton
   - BannerAdButton
+  - HanoiRewardedAdButton
   layers:
   - Default
   - TransparentFX

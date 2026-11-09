@@ -407,6 +407,9 @@ GameObject:
   - component: {fileID: 706851987}
   - component: {fileID: 706851986}
   - component: {fileID: 706851985}
+  - component: {fileID: 706851990}
+  - component: {fileID: 706851992}
+  - component: {fileID: 706851991}
   m_Layer: 0
   m_Name: AdsScriptHolder
   m_TagString: Untagged
@@ -426,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a616b1c52466ed345b775e75d6c5b53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AndroidAdUnitId: BP_Rewarded_Android
+  _AndroidAdUnitId: BP_Banner_Android
   _bannerButton: {fileID: 0}
   isBannerVisible: 0
   showOnLoad: 1
@@ -475,8 +478,8 @@ MonoBehaviour:
   adsInitializer: {fileID: 706851987}
   interstitialAd: {fileID: 706851986}
   turnOffInterstitialAds: 0
-  rewardedAds: {fileID: 0}
-  hanoiRewardedAds: {fileID: 0}
+  rewardedAds: {fileID: 706851992}
+  hanoiRewardedAds: {fileID: 706851990}
   turnOffRewardedAds: 0
   bannerAd: {fileID: 706851985}
   turnOffBannerAds: 0
@@ -495,6 +498,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706851990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706851984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454f3dfd68574b54ca4ebf697d8f9528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: BP_Rewarded_Android
+  _rewardedAdButton: {fileID: 0}
+--- !u!114 &706851991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706851984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca30116ff0185746938ef76693c80a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &706851992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706851984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4c72923e7ec634e97a22a74bcd2800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: BP_Rewarded_Android
+  _rewardedAdButton: {fileID: 0}
+  flyingObjectManager: {fileID: 0}
 --- !u!1 &1050712117
 GameObject:
   m_ObjectHideFlags: 0
