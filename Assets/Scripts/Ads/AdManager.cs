@@ -7,7 +7,7 @@ public class AdManager : MonoBehaviour
     public AdsInitializer adsInitializer;
     public InterstitialAd interstitialAd;
     [SerializeField] bool turnOffInterstitialAds = false;
-    private bool firstAdShown = false;
+    private bool showInterstitialWhenReady = false;
 
     public RewardedAds rewardedAds; // city scene
     public HanoiRewardedAds hanoiRewardedAds; // hanoi scene
@@ -67,16 +67,15 @@ public class AdManager : MonoBehaviour
 
     private void HandleInterstitialReady()
     {
-        if (!firstAdShown)
-        {
-            Debug.Log("Showing interstitial ad for the first time!");
-            interstitialAd.ShowAd();
-            firstAdShown = true;
-
-        } else
+        if (!showInterstitialWhenReady)
         {
             Debug.Log("Interstitial ad is ready to be shown again!");
+            return;
         }
+
+        showInterstitialWhenReady = false;   // clear first so it shows only once per scene load
+        Debug.Log("Showing interstitial ad for the new scene!");
+        interstitialAd.ShowAd();
     }
 
     private void OnEnable()
@@ -93,6 +92,8 @@ public class AdManager : MonoBehaviour
     {
         if (interstitialAd == null)
             interstitialAd = FindFirstObjectByType<InterstitialAd>();
+
+        showInterstitialWhenReady = !turnOffInterstitialAds;
 
         GameObject interButtonObj = GameObject.FindWithTag("InterstitialAdButton");
         if (interButtonObj != null && interstitialAd != null)
